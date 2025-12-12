@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partial Derivatives - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .math-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .example {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .example h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .interactive-box {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .calculator {
+            margin: 20px 0;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            width: 200px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="number"]:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .result {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .note {
+            background: #fff9c4;
+            border-left: 4px solid #fbc02d;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .grid-visual {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .visual-card {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .visual-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Partial Derivatives</h1>
+        <p class="subtitle">Understanding Multivariable Calculus</p>
+
+        <h2>🎯 What Are Partial Derivatives?</h2>
+        <p>
+            A partial derivative measures how a function changes when we vary one variable while keeping all other variables constant. 
+            If you have a function with multiple variables, like f(x, y), the partial derivative tells you the rate of change in one direction.
+        </p>
+
+        <div class="note">
+            <strong>💡 Key Idea:</strong> Imagine a mountain surface described by height z = f(x, y). The partial derivative ∂z/∂x tells you how steep the mountain is if you walk in the x-direction, while ∂z/∂y tells you the steepness in the y-direction.
+        </div>
+
+        <h2>📝 Notation</h2>
+        <p>For a function f(x, y), we use several notations for partial derivatives:</p>
+        <div class="math-box">
+            ∂f/∂x  or  f<sub>x</sub>  or  f<sub>1</sub><br><br>
+            ∂f/∂y  or  f<sub>y</sub>  or  f<sub>2</sub>
+        </div>
+        <p>The symbol ∂ (del) distinguishes partial derivatives from ordinary derivatives (d).</p>
+
+        <h2>🔢 How to Calculate Partial Derivatives</h2>
+        <p>To find a partial derivative with respect to one variable:</p>
+        <ul>
+            <li>Treat all other variables as constants</li>
+            <li>Apply the usual differentiation rules</li>
+            <li>Simplify the result</li>
+        </ul>
+
+        <div class="example">
+            <h3>Example 1: Simple Polynomial</h3>
+            <p><strong>Given:</strong> f(x, y) = x² + 3xy + y³</p>
+            
+            <p><strong>Finding ∂f/∂x:</strong></p>
+            <p>Treat y as a constant:</p>
+            <div class="math-box">
+                ∂f/∂x = 2x + 3y + 0 = 2x + 3y
+            </div>
+
+            <p><strong>Finding ∂f/∂y:</strong></p>
+            <p>Treat x as a constant:</p>
+            <div class="math-box">
+                ∂f/∂y = 0 + 3x + 3y² = 3x + 3y²
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>Example 2: Exponential Function</h3>
+            <p><strong>Given:</strong> f(x, y) = e<sup>xy</sup></p>
+            
+            <p><strong>Finding ∂f/∂x:</strong></p>
+            <div class="math-box">
+                ∂f/∂x = y · e<sup>xy</sup>
+            </div>
+
+            <p><strong>Finding ∂f/∂y:</strong></p>
+            <div class="math-box">
+                ∂f/∂y = x · e<sup>xy</sup>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>Example 3: Trigonometric Function</h3>
+            <p><strong>Given:</strong> f(x, y) = sin(x) · cos(y)</p>
+            
+            <p><strong>Finding ∂f/∂x:</strong></p>
+            <div class="math-box">
+                ∂f/∂x = cos(x) · cos(y)
+            </div>
+
+            <p><strong>Finding ∂f/∂y:</strong></p>
+            <div class="math-box">
+                ∂f/∂y = sin(x) · (-sin(y)) = -sin(x) · sin(y)
+            </div>
+        </div>
+
+        <h2>🧮 Interactive Calculator</h2>
+        <div class="interactive-box">
+            <h3>Calculate: f(x, y) = x² + y²</h3>
+            <p>This calculator computes the partial derivatives of f(x, y) = x² + y² at a given point.</p>
+            
+            <div class="calculator">
+                <div class="input-group">
+                    <label>x value:</label>
+                    <input type="number" id="xValue" value="2" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>y value:</label>
+                    <input type="number" id="yValue" value="3" step="0.1">
+                </div>
+                <button onclick="calculatePartials()">Calculate Partial Derivatives</button>
+                
+                <div id="result" class="result"></div>
+            </div>
+        </div>
+
+        <h2>🎨 Geometric Interpretation</h2>
+        <div class="grid-visual">
+            <div class="visual-card">
+                <h4>∂f/∂x</h4>
+                <p>Slope of the curve when y is held constant</p>
+                <p>📈 Change in the x-direction</p>
+            </div>
+            <div class="visual-card">
+                <h4>∂f/∂y</h4>
+                <p>Slope of the curve when x is held constant</p>
+                <p>📈 Change in the y-direction</p>
+            </div>
+        </div>
+
+        <h2>🌟 Applications</h2>
+        <ul>
+            <li><strong>Physics:</strong> Heat distribution, electromagnetic fields</li>
+            <li><strong>Economics:</strong> Marginal cost, marginal utility</li>
+            <li><strong>Engineering:</strong> Stress analysis, fluid dynamics</li>
+            <li><strong>Machine Learning:</strong> Gradient descent optimization</li>
+            <li><strong>Computer Graphics:</strong> Surface normals, lighting</li>
+        </ul>
+
+        <h2>📚 Higher-Order Partial Derivatives</h2>
+        <p>We can take partial derivatives of partial derivatives!</p>
+        <div class="math-box">
+            ∂²f/∂x² = f<sub>xx</sub> (second partial w.r.t. x)<br><br>
+            ∂²f/∂y² = f<sub>yy</sub> (second partial w.r.t. y)<br><br>
+            ∂²f/∂x∂y = f<sub>xy</sub> (mixed partial)
+        </div>
+
+        <div class="note">
+            <strong>🎓 Clairaut's Theorem:</strong> If the mixed partial derivatives are continuous, then f<sub>xy</sub> = f<sub>yx</sub>. This means the order of differentiation doesn't matter!
+        </div>
+
+        <div class="example">
+            <h3>Example: Second-Order Partials</h3>
+            <p><strong>Given:</strong> f(x, y) = x³y² + xy⁴</p>
+            
+            <p><strong>First-order partials:</strong></p>
+            <div class="math-box">
+                f<sub>x</sub> = 3x²y² + y⁴<br>
+                f<sub>y</sub> = 2x³y + 4xy³
+            </div>
+
+            <p><strong>Second-order partials:</strong></p>
+            <div class="math-box">
+                f<sub>xx</sub> = 6xy²<br>
+                f<sub>yy</sub> = 2x³ + 12xy²<br>
+                f<sub>xy</sub> = 6x²y + 4y³<br>
+                f<sub>yx</sub> = 6x²y + 4y³ ✓ (Same as f<sub>xy</sub>!)
+            </div>
+        </div>
+
+        <h2>💪 Practice Problems</h2>
+        <div class="example">
+            <h3>Try These!</h3>
+            <p>Find the partial derivatives for:</p>
+            <ol>
+                <li>f(x, y) = x²y + xy² - 2y</li>
+                <li>g(x, y) = ln(x² + y²)</li>
+                <li>h(x, y, z) = xyz + x²z²</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <p>Made with calculus ❤️ | Keep practicing partial derivatives!</p>
+        </div>
+    </div>
+
+    <script>
+        function calculatePartials() {
+            const x = parseFloat(document.getElementById('xValue').value);
+            const y = parseFloat(document.getElementById('yValue').value);
+            
+            // For f(x,y) = x² + y²
+            // ∂f/∂x = 2x
+            // ∂f/∂y = 2y
+            const partialX = 2 * x;
+            const partialY = 2 * y;
+            const functionValue = x * x + y * y;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <strong>Results at point (${x}, ${y}):</strong><br><br>
+                f(${x}, ${y}) = ${functionValue.toFixed(2)}<br><br>
+                ∂f/∂x = 2x = 2(${x}) = ${partialX.toFixed(2)}<br>
+                ∂f/∂y = 2y = 2(${y}) = ${partialY.toFixed(2)}<br><br>
+                <em>Interpretation: The function is changing ${Math.abs(partialX).toFixed(2)} units per unit change in x, 
+                and ${Math.abs(partialY).toFixed(2)} units per unit change in y.</em>
+            `;
+        }
+
+        // Calculate on page load
+        window.addEventListener('load', calculatePartials);
+    </script>
+</body>
+</html>
